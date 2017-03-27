@@ -3,6 +3,7 @@ package sidmeyer.carmanager.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sidmeyer.carmanager.model.ActionRequest;
+import sidmeyer.carmanager.view.StatisticViewer;
 
 import java.util.*;
 
@@ -20,7 +21,7 @@ public class Main {
 		LOG.info("Start main.");
 		garageCapacity = 4;
 		waitingLineCapacity = 5;
-		filePath = "/home/stas/Documents/java/CarManager/target/classes/inputData.txt";
+		filePath = "J:\\java\\IdeaProjects\\CarManager\\src\\main\\resources\\inputData.txt";
 		try {
 			for (int i = 0; i < args.length; i++) {
 				switch (args[i]) {
@@ -52,7 +53,7 @@ public class Main {
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
 		CarController carController = new CarController(garageCapacity, waitingLineCapacity);
 		carController.processRequests(actionRequests);
-		//StatisticViewer.printStatistic(carController.getStatistic());
+		StatisticViewer.printStatistic(carController.getStatistic());
 
 		LOG.info("Finish main.");
 	}
