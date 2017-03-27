@@ -11,6 +11,7 @@ import sidmeyer.carmanager.model.CarStatistic;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by Stas on 25.03.2017.
@@ -33,7 +34,7 @@ public class CarController {
 	public void processRequests(ArrayList<ActionRequest> requests) {
 		LOG.info("Request processing started. Got " + requests.size() + " requests.");
 		ArrayDeque<Car> garage = new ArrayDeque<Car>();
-		ArrayQueue<Car> wl = new ArrayQueue<Car>(waitingLineCapacity);
+		LinkedList<Car> wl = new LinkedList<Car>();
 		//Stack<Car> yard = new Stack<Car>();
 		ArrayDeque<Car> yard = new ArrayDeque<Car>();
 
@@ -55,8 +56,10 @@ public class CarController {
 					garage.addLast(car);
 					LOG.debug("Car " + car + " entered garage.");
 					statistic.get(car).incGarageCount();
+				} else if(wl.contains(car)) {
+					LOG.debug("Car " + car + " remains on waiting line.");
 				} else if(wl.size() < waitingLineCapacity) {
-					wl.add(car);
+					wl.addLast(car);
 					LOG.debug("Car " + car + " joined waiting line.");
 					statistic.get(car).incWaitingLineCount();
 				} else {
@@ -88,8 +91,8 @@ public class CarController {
 						yard.removeFirst();
 					}
 					if(wl.size() > 0) {
-						garage.addLast(wl.get(0));
-						wl.remove(0);
+						garage.addLast(wl.getFirst());
+						wl.removeFirst();
 						LOG.debug("Car " + garage.getLast() + " entered garage from waiting line.");
 						statistic.get(car).incGarageCount();
 					}
