@@ -1,6 +1,5 @@
 package sidmeyer.carmanager.controllers;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sidmeyer.carmanager.model.Action;
@@ -21,7 +20,6 @@ public class CarController {
 	private HashMap<Car, CarStatistic> statistic = new HashMap<Car, CarStatistic>();
 	private final int garageCapacity;
 	private final int waitingLineCapacity;
-	//RequestCreator inputData;
 
 	public CarController(int garageCapacity, int waitingLCapacity) {
 		this.garageCapacity = garageCapacity;
@@ -94,14 +92,14 @@ public class CarController {
 						garage.addLast(wl.getFirst());
 						wl.removeFirst();
 						LOG.debug("Car " + garage.getLast() + " entered garage from waiting line.");
-						statistic.get(car).incGarageCount();
+						statistic.get(garage.getLast()).incGarageCount();
 					}
 				}
 			}
 			LOG.trace("WL: " + wl.size() + ", G: " + garage.size() + ", Y: " + yard.size() + ".");
 			LOG.trace("WL: " + wl + ", G: " + garage + ", Y: " + yard + ".");
 		}
-		LOG.info(statistic);
+		LOG.trace(statistic);
 		LOG.info("End processing requests.");
 	}
 
