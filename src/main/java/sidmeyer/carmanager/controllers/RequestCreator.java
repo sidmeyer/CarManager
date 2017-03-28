@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Stas on 24.03.2017.
+ * Class includes method which reads file and makes requests list.
  */
 public class RequestCreator {
 
@@ -39,6 +39,10 @@ public class RequestCreator {
             while ((line = fin.readLine()) != null) {
                 lineIndex++;
                 LOG.debug("Processing line " + lineIndex + ": \"" + line + "\".");
+                if(line.length() < 3) {
+                    LOG.error("Incorrect data in line " + lineIndex + ". Line skipped.");
+                    continue;
+                }
                 String carName = line.substring(2, line.length());
                 if (!cars.containsKey(carName)) {
                     cars.put(carName, new Car(carName));

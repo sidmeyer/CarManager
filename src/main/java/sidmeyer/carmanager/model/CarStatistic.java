@@ -5,14 +5,11 @@ package sidmeyer.carmanager.model;
  */
 public class CarStatistic {
 
-	//private boolean onWaitingLine;
 	private int waitingLineCount = 0;
 	private int garageCount = 0;
 	private int yardCount = 0;
 	private int cancelCount = 0;
-	//private boolean cancelled;
 
-	// general constructor
 	public CarStatistic() {
 	}
 
@@ -77,11 +74,6 @@ public class CarStatistic {
 		result = 31 * result + cancelCount;
 		return result;
 	}
-
-//	public String toString(){
-//		return waitingLineCount + "\t" + garageCount + "\t" + yardCount + "\t" + cancelCount;
-//	}
-
 
 	@Override
 	public String toString() {

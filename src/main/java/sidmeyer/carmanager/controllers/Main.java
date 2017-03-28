@@ -53,7 +53,9 @@ public class Main {
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
 		CarController carController = new CarController(garageCapacity, waitingLineCapacity);
 		carController.processRequests(actionRequests);
+
 		StatisticViewer.printStatistic(carController.getStatistic());
+		StatisticViewer.printLocations(carController.getGarage(), carController.getWl());
 
 		LOG.info("Finish main.");
 	}

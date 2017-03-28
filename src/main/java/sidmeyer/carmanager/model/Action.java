@@ -1,7 +1,9 @@
 package sidmeyer.carmanager.model;
 
 /**
- * Created by Stas on 24.03.2017.
+ * Possible actions.
+ * IN - move to garage.
+ * OUT - move out of garage.
  */
 public enum Action {
 	IN,
