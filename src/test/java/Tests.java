@@ -69,7 +69,7 @@ H	0	0	0	0
 			put(new Car("H"), new CarStatistic(0, 0, 0, 0));
 		}};
 
-		RequestCreator requestCreator = new RequestCreator("J:\\java\\IdeaProjects\\CarManager\\src\\test\\resources\\testInputData01.txt");
+		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData01.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
 		CarController carController = new CarController(4, 5);
 		carController.processRequests(actionRequests);
@@ -105,7 +105,7 @@ H	1	0	0	0
 			put(new Car("H"), new CarStatistic(1, 0, 0, 0));
 		}};
 
-		RequestCreator requestCreator = new RequestCreator("J:\\java\\IdeaProjects\\CarManager\\src\\test\\resources\\testInputData02.txt");
+		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData02.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
 		CarController carController = new CarController(4, 5);
 		carController.processRequests(actionRequests);
@@ -149,7 +149,7 @@ L	0	0	0	2
 			put(new Car("L"), new CarStatistic(0, 0, 0, 2));
 		}};
 
-		RequestCreator requestCreator = new RequestCreator("J:\\java\\IdeaProjects\\CarManager\\src\\test\\resources\\testInputData03.txt");
+		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData03.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
 		CarController carController = new CarController(4, 5);
 		carController.processRequests(actionRequests);
@@ -216,7 +216,7 @@ L	0	0	0	2
 			put(new Car("L"), new CarStatistic(0, 0, 0, 2));
 		}};
 
-		RequestCreator requestCreator = new RequestCreator("J:\\java\\IdeaProjects\\CarManager\\src\\test\\resources\\testInputData04.txt");
+		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData04.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
 		CarController carController = new CarController(4, 5);
 		carController.processRequests(actionRequests);

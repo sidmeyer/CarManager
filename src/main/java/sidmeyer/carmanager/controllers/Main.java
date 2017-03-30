@@ -14,14 +14,14 @@ public class Main {
 	private static final Logger LOG = LogManager.getLogger("CarManager");
 	private static int garageCapacity = 4;
 	private static int waitingLineCapacity = 5;
-	private static String filePath = "/home/stas/Documents/java/CarManager/target/classes/inputData.txt";
+	private static String filePath;
 
 
 	public static void main(String[] args) {
 		LOG.info("Start main.");
 		garageCapacity = 4;
 		waitingLineCapacity = 5;
-		filePath = "J:\\java\\IdeaProjects\\CarManager\\src\\main\\resources\\inputData.txt";
+		filePath = System.getProperty("user.dir") + "/src/main/resources/inputData.txt";
 		try {
 			for (int i = 0; i < args.length; i++) {
 				switch (args[i]) {
