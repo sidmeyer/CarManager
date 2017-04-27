@@ -76,16 +76,15 @@ public class CarController {
 					LOG.debug("Car " + car + " went out from garage.");
 				} else if (garage.contains(car)) {
 					while (!garage.getFirst().equals(car)) {
-						yard.add(garage.getFirst());
+						yard.push(garage.getFirst());
 						statistic.get(garage.getFirst()).incYardCount();
 						garage.removeFirst();
 					}
 					garage.removeFirst();
 					LOG.debug("Car " + car + " went out from garage. Cars were on yard: " + yard.size() + ".");
 					while (yard.size() > 0) {
-						garage.addFirst(yard.get(0));
-						statistic.get(yard.get(0)).incGarageCount();
-						yard.remove(0);
+						garage.addFirst(yard.pop());
+						statistic.get(garage.getFirst()).incGarageCount();
 					}
 					if (wl.size() > 0) {
 						garage.addLast(wl.getFirst());
