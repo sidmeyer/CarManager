@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import sidmeyer.carmanager.model.ActionRequest;
 import sidmeyer.carmanager.view.StatisticViewer;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -21,7 +22,8 @@ public class Main {
 		LOG.info("Start main.");
 		garageCapacity = 4;
 		waitingLineCapacity = 5;
-		filePath = System.getProperty("user.dir") + "/src/main/resources/inputData.txt";
+		filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
+				+ File.separator + "resources" + File.separator + "inputData.txt";
 		try {
 			for (int i = 0; i < args.length; i++) {
 				switch (args[i]) {
