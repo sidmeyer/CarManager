@@ -7,6 +7,9 @@ import sidmeyer.carmanager.model.ActionRequest;
 import sidmeyer.carmanager.model.Car;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,9 +34,8 @@ public class RequestCreator {
 
         ArrayList<ActionRequest> tempRequests = new ArrayList<ActionRequest>();
 
-        File f = new File(filePath);
-        try {
-            BufferedReader fin = new BufferedReader(new FileReader(f));
+        try (BufferedReader fin = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8)) {
+
             String line;
             int lineIndex = 0;
             while ((line = fin.readLine()) != null) {
