@@ -4,6 +4,7 @@ import sidmeyer.carmanager.model.Car;
 import sidmeyer.carmanager.model.CarStatistic;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -32,7 +33,7 @@ public class StatisticViewer {
 	 * @param garage - cars in garage.
 	 * @param wl - cars on waiting line.
 	 */
-	public static void printLocations(ArrayDeque<Car> garage, LinkedList<Car> wl) {
+	public static void printLocations(Deque<Car> garage, Deque<Car> wl) {
 		System.out.format("WL:\t%s (%d cars)\n", wl, wl.size());
 		System.out.format("G: \t%s (%d cars)\n", garage, garage.size());
 	}
