@@ -1,9 +1,7 @@
 import org.junit.Test;
 import sidmeyer.carmanager.controllers.CarController;
 import sidmeyer.carmanager.controllers.RequestCreator;
-import sidmeyer.carmanager.model.ActionRequest;
-import sidmeyer.carmanager.model.Car;
-import sidmeyer.carmanager.model.CarStatistic;
+import sidmeyer.carmanager.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,7 +69,12 @@ H	0	0	0	0
 
 		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData01.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
-		CarController carController = new CarController(4, 5);
+
+		Yard yard = new Yard();
+		Garage garage = new Garage(4, yard);
+		WaitingLine wl = new WaitingLine(5, garage);
+
+		CarController carController = new CarController(garage, wl);
 		carController.processRequests(actionRequests);
 
 		HashMap<Car,CarStatistic> actual = carController.getStatistic();
@@ -107,7 +110,12 @@ H	1	0	0	0
 
 		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData02.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
-		CarController carController = new CarController(4, 5);
+
+		Yard yard = new Yard();
+		Garage garage = new Garage(4, yard);
+		WaitingLine wl = new WaitingLine(5, garage);
+
+		CarController carController = new CarController(garage, wl);
 		carController.processRequests(actionRequests);
 
 		HashMap<Car,CarStatistic> actual = carController.getStatistic();
@@ -151,7 +159,12 @@ L	0	0	0	2
 
 		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData03.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
-		CarController carController = new CarController(4, 5);
+
+		Yard yard = new Yard();
+		Garage garage = new Garage(4, yard);
+		WaitingLine wl = new WaitingLine(5, garage);
+
+		CarController carController = new CarController(garage, wl);
 		carController.processRequests(actionRequests);
 
 		HashMap<Car,CarStatistic> actual = carController.getStatistic();
@@ -218,7 +231,12 @@ L	0	0	0	2
 
 		RequestCreator requestCreator = new RequestCreator(System.getProperty("user.dir") + "/src/test/resources/testInputData04.txt");
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
-		CarController carController = new CarController(4, 5);
+
+		Yard yard = new Yard();
+		Garage garage = new Garage(4, yard);
+		WaitingLine wl = new WaitingLine(5, garage);
+
+		CarController carController = new CarController(garage, wl);
 		carController.processRequests(actionRequests);
 
 		HashMap<Car,CarStatistic> actual = carController.getStatistic();
