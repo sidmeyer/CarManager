@@ -14,25 +14,35 @@ import java.util.*;
 public class CarController {
 	private static final Logger LOG = LogManager.getLogger("CarManager");
 	private HashMap<Car, CarStatistic> statistic = new HashMap<Car, CarStatistic>();
-	private final int garageCapacity;
-	private final int waitingLineCapacity;
+//	private final int garageCapacity;
+//	private final int waitingLineCapacity;
 //	private Deque<Car> garage = new LinkedList<>();
 //	private Deque<Car> wl = new LinkedList<>();
 //	private Stack<Car> yard = new Stack<>();
 
 	//test
 	private final Yard yard = new Yard();
-	private final Garage garage = new Garage(4, yard);
-	private final WaitingLine wl = new WaitingLine(5);
+	private final Garage garage;
+	private final WaitingLine wl;
 	//test
 
-	public CarController(int garageCapacity, int waitingLCapacity) {
-		this.garageCapacity = garageCapacity;
-		this.waitingLineCapacity = waitingLCapacity;
-		LOG.info("CarController initialized. Garage capacity: " +
-				this.garageCapacity + ", waiting line capacity: " +
-				this.waitingLineCapacity + ".");
+	public CarController(final Garage garage, final WaitingLine wl) {
+		this.garage = garage;
+		this.wl = wl;
 	}
+
+//	public CarController(int garageCapacity, int waitingLCapacity) {
+//		this.garageCapacity = garageCapacity;
+//		this.waitingLineCapacity = waitingLCapacity;
+//
+//		//test
+//
+//		//test
+//
+//		LOG.info("CarController initialized. Garage capacity: " +
+//				this.garageCapacity + ", waiting line capacity: " +
+//				this.waitingLineCapacity + ".");
+//	}
 
 	/**
 	 * Processes the requests/ Makes changes in garage and waiting line according to requests.
@@ -119,33 +129,48 @@ public class CarController {
 			Action action = request.getAction();
 
 			if (action.equals(Action.IN)) {
-
-				boolean result = false;
-				try {
-					result = garage.moveIn(car);
-				} catch (FullGarageException fge) {
-
-					try {
-						wl.moveIn(car);
-					} catch (FullWaitingLineException fwle) {
-						if (LOG.isDebugEnabled()) {
-							LOG.debug("Car %s cancelled.", car);
+				switch (getLocation(car)) {
+					case OUT:
+						try {
+							garage.moveIn(car);
+							LOG.debug("Car %s entered garage.", car);
+						} catch (FullGarageException fge) {
+							try {
+								wl.moveIn(car);
+								LOG.debug("Car %s joined waiting line.", car);
+							} catch (FullWaitingLineException fwle) {
+								LOG.debug("Car %s cancelled.", car);
+							}
 						}
-					}
+						break;
+					case GARAGE:
+						LOG.debug("Car %s already in garage.", car);
+						break;
+					case WAITING_LINE:
+						LOG.debug("Car %s cancelled.", car);
+						break;
 				}
-
-				if (result) {
-					try {
-						garage.moveIn(wl.poll());
-					} catch (FullGarageException fge) {} //не может такого быть
-				}
-
 			}
 
 
 			if (action.equals(Action.OUT)) {
-
+				switch (getLocation(car)) {
+					case OUT:
+						LOG.debug("Car %s already out.", car);
+						break;
+					case WAITING_LINE:
+						wl.moveOut(car);
+						LOG.debug("Car %s moved out from %s.", car, Location.WAITING_LINE);
+						break;
+					case GARAGE:
+						garage.moveOut(car);
+						LOG.debug("Car %s moved out from %s.", car, Location.GARAGE);
+						wl.moveToGarage();
+						break;
+				}
 			}
+
+
 		}
 
 	}
@@ -169,5 +194,17 @@ public class CarController {
 
 	public Deque<Car> getWl() {
 		return wl.getWL();
+	}
+
+	private Location getLocation(Car car) {
+		if (garage.contains(car)) {
+			return Location.GARAGE;
+		}
+
+		if (wl.contains(car)) {
+			return Location.WAITING_LINE;
+		}
+
+		return Location.OUT;
 	}
 }

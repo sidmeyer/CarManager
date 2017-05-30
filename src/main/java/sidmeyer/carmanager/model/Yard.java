@@ -24,4 +24,8 @@ public class Yard {
     public int size() {
         return container.size();
     }
+
+    public String toString() {
+        return container.toString();
+    }
 }

@@ -2,16 +2,17 @@ package sidmeyer.carmanager.view;
 
 import sidmeyer.carmanager.model.Car;
 import sidmeyer.carmanager.model.CarStatistic;
+import sidmeyer.carmanager.controllers.Observer;
+import sidmeyer.carmanager.model.Location;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.LinkedList;
+
 
 /**
  * Created by Stas on 27.03.2017.
  */
-public class StatisticViewer {
+public class StatisticViewer implements Observer {
 	/**
 	 * Prints statistic for all car. How many times each car was on waiting line,
 	 * in garage, on yard and has been cancelled.
@@ -36,5 +37,10 @@ public class StatisticViewer {
 	public static void printLocations(Deque<Car> garage, Deque<Car> wl) {
 		System.out.format("WL:\t%s (%d cars)\n", wl, wl.size());
 		System.out.format("G: \t%s (%d cars)\n", garage, garage.size());
+	}
+
+	@Override
+	public void handleEvent(Car car, Location location) {
+
 	}
 }

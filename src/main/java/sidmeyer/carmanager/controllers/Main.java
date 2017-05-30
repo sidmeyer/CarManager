@@ -3,6 +3,9 @@ package sidmeyer.carmanager.controllers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sidmeyer.carmanager.model.ActionRequest;
+import sidmeyer.carmanager.model.Garage;
+import sidmeyer.carmanager.model.WaitingLine;
+import sidmeyer.carmanager.model.Yard;
 import sidmeyer.carmanager.view.StatisticViewer;
 
 import java.io.File;
@@ -53,7 +56,12 @@ public class Main {
 				", file: " + filePath + ".");
 		RequestCreator requestCreator = new RequestCreator(filePath);
 		ArrayList<ActionRequest> actionRequests = requestCreator.getRequests();
-		CarController carController = new CarController(garageCapacity, waitingLineCapacity);
+
+		Yard yard = new Yard();
+		Garage garage = new Garage(4, yard);
+		WaitingLine wl = new WaitingLine(5, garage);
+
+		CarController carController = new CarController(garage, wl);
 		carController.processRequests(actionRequests);
 
 		StatisticViewer.printStatistic(carController.getStatistic());
